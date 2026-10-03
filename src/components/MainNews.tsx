@@ -1,4 +1,7 @@
+
 import Image from "next/image";
+import Link from "next/link";
+
 interface MainNewsType {
   id: string;
   title: string;
@@ -8,63 +11,81 @@ interface MainNewsType {
   imageAlt: string;
 }
 
-const MainNews = async ({news}:{news: MainNewsType[]}) => {
-  
+interface MainNewsProps {
+  news: MainNewsType[];
+}
+
+const MainNews = ({ news }: MainNewsProps) => {
   const [firstNews, ...othersNews] = news;
 
-  return (
-    <section className="max-w-7xl mx-auto px-4 py-4">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
-        
-        {/* First News */}
-        {firstNews && (
-          <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm flex flex-col justify-between">
-            <div>
-              <div className="relative w-full aspect-[16/9] max-h-72 sm:max-h-80">
-                <Image
-                  src={firstNews.imageUrl}
-                  alt={firstNews.imageAlt || firstNews.title}
-                  fill
-                  priority
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 66vw"
-                />
-              </div>
+  if (!firstNews) {
+    return null;
+  }
 
-              <div className="p-4 sm:p-5 space-y-2">
-                <span className="block text-red-600 font-bold text-xs sm:text-sm">
+  return (
+    <section className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+        <Link
+          href={`/news-detail/${firstNews.id}`}
+          className="group block lg:col-span-2"
+        >
+          <article className="h-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+            <div className="relative aspect-[16/9] w-full overflow-hidden bg-gray-100 sm:aspect-[16/8.5] lg:max-h-[390px]">
+              <Image
+                src={firstNews.imageUrl}
+                alt={firstNews.imageAlt || firstNews.title}
+                fill
+                priority
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 66vw"
+              />
+            </div>
+
+            <div className="p-4 sm:p-6">
+              {firstNews.category && (
+                <span className="mb-2 block text-xs font-bold uppercase tracking-wide text-red-600 sm:text-sm">
                   {firstNews.category}
                 </span>
-                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-red-700 leading-snug hover:text-red-800 transition-colors cursor-pointer">
-                  {firstNews.title}
-                </h2>
-                <p className="text-gray-600 text-xs sm:text-sm leading-relaxed line-clamp-2">
+              )}
+
+              <h2 className="text-xl font-bold leading-snug text-gray-900 transition-colors group-hover:text-red-600 sm:text-2xl lg:text-3xl">
+                {firstNews.title}
+              </h2>
+
+              {firstNews.description && (
+                <p className="mt-3 line-clamp-3 text-sm leading-6 text-gray-600 sm:text-base">
                   {firstNews.description}
                 </p>
-              </div>
+              )}
             </div>
-          </div>
-        )}
+          </article>
+        </Link>
 
-        {/* Others News */}
-        <div className="lg:col-span-1 bg-white rounded-xl border border-gray-200 p-4 sm:p-5 shadow-sm flex flex-col justify-between">
-          <div className="divide-y divide-gray-200 flex flex-col justify-between h-full">
-            {othersNews.slice(0, 5).map((news) => (
-              <div key={news.id} className="py-3 first:pt-0 last:pb-0 space-y-1">
-                <span className="block text-red-600 font-bold text-xs">
-                  {news.category}
-                </span>
-                <h3 className="text-sm sm:text-base font-bold text-gray-900 hover:text-red-600 transition-colors cursor-pointer leading-snug line-clamp-2">
-                  {news.title}
+        <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:p-5">
+          <div className="divide-y divide-gray-200">
+            {othersNews.slice(0, 5).map((item) => (
+              <Link
+                key={item.id}
+                href={`/news-detail/${item.id}`}
+                className="group block py-4 first:pt-0 last:pb-0"
+              >
+                {item.category && (
+                  <span className="mb-1 block text-xs font-bold uppercase tracking-wide text-red-600">
+                    {item.category}
+                  </span>
+                )}
+
+                <h3 className="line-clamp-2 text-sm font-bold leading-6 text-gray-900 transition-colors group-hover:text-red-600 sm:text-base">
+                  {item.title}
                 </h3>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );
 };
 
 export default MainNews;
+

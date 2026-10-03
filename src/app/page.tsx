@@ -1,4 +1,3 @@
-import Marquee from "@/components/Marquee";
 import MainNews from "@/components/MainNews";
 import NewsCard from "@/components/NewsCard";
 import MostRead from "@/components/MostRead";
@@ -38,7 +37,7 @@ const filteredOthersNews = othersSection.filter(
   return (
     <main className="min-h-screen bg-gray-50/50 pb-10">
       {/* মার্কি সেকশন */}
-      <Marquee />
+      
 
       {/* প্রধান লেআউট কন্টেইনার */}
       <div className="container mx-auto px-4 my-6 grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">

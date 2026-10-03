@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface NewsItem {
@@ -18,7 +19,8 @@ const NewsCard: React.FC<NewsCardProps> = ({ news }) => {
   if (!news) return null;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full group">
+    <Link href={`/news-detail/${news.id}`}>
+      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full group">
       <div>
         {/* ছবির অংশ */}
         <div className="relative w-full aspect-[16/10] overflow-hidden bg-gray-100">
@@ -45,6 +47,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news }) => {
         </div>
       </div>
     </div>
+    </Link>
   );
 };
 

@@ -1,4 +1,5 @@
 
+import Link from "next/link";
 import MarqueeText from "react-marquee-text";
 import "react-marquee-text/dist/styles.css";
 
@@ -26,29 +27,32 @@ const Marquee = async () => {
 
   const headLines: MarqueeTitleType[] = data.data;
 
-
   return (
-    <div className="bg-red-600 text-white text-2xl font-semibold">
-      <div className="flex">
+    <div className="w-full bg-red-600 text-white text-base sm:text-lg md:text-xl lg:text-2xl font-semibold">
+      <div className="flex w-full">
 
-        <div className="bg-red-800 py-2 px-4 font-bold shrink-0">
+        <div className="bg-red-800 py-2 px-2 sm:px-3 md:px-4 font-bold shrink-0">
           সর্বশেষ
         </div>
 
-        <div className="min-w-0 overflow-hidden">
+        <div className="flex-1 min-w-0 overflow-hidden">
           <MarqueeText
             className="py-2"
             direction="right"
             duration={15}
           >
             {headLines.map((h, ind) => (
-              <span key={ind}>
-                <span>{h.title}</span>
+              <Link key={ind} href={`/news-detail/${h.id}`}>
 
-                <span className="mx-5">
+                <span >
+                <span className="hover:underline">{h.title}</span>
+
+                <span className="mx-3 sm:mx-4 md:mx-5">
                   •
                 </span>
               </span>
+
+              </Link>
             ))}
           </MarqueeText>
         </div>

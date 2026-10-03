@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface MostReadType {
   id: string;
   title: string;
@@ -37,7 +39,8 @@ const MostRead = async () => {
             key={item.id || index}
             className="py-3.5 first:pt-0 last:pb-0 group cursor-pointer"
           >
-            <div className="flex items-start gap-3.5">
+            <Link href={`/news-detail/${item.id}`}>
+              <div className="flex items-start gap-3.5">
               {/* সংবাদের র্যাঙ্ক/ক্রমিক নম্বর (১, ২, ৩...) */}
               <span className="flex-shrink-0 text-2xl font-black text-gray-300 group-hover:text-red-600 transition-colors w-6 text-center leading-none mt-0.5">
                 {(index + 1)}
@@ -45,16 +48,13 @@ const MostRead = async () => {
 
               {/* ক্যাটাগরি ও হেডলাইন */}
               <div className="space-y-1 flex-1">
-                {item.category && (
-                  <span className="block text-red-600 font-bold text-xs">
-                    {item.category}
-                  </span>
-                )}
+                
                 <h3 className="text-sm sm:text-base font-bold text-gray-800 group-hover:text-red-600 transition-colors leading-snug line-clamp-2">
                   {item.title}
                 </h3>
               </div>
             </div>
+            </Link>
           </div>
         ))}
       </div>
