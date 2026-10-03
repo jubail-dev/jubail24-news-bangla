@@ -26,7 +26,6 @@ const Marquee = async () => {
 
   const headLines: MarqueeTitleType[] = data.data;
 
-  console.log(headLines);
 
   return (
     <div className="bg-red-600 text-white text-2xl font-semibold">
