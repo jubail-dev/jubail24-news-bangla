@@ -1,6 +1,7 @@
 import Marquee from "@/components/Marquee";
 import MainNews from "@/components/MainNews";
 import NewsCard from "@/components/NewsCard";
+import MostRead from "@/components/MostRead";
 
 interface OtherSectionType {
   curationId: string,
@@ -26,7 +27,14 @@ export default async function Home() {
 
   const [firstSection, ...othersSection] = section;
   const mainNews = firstSection?.articles || [];
+  const excludedCategories = [
+  "বিবিসি বাংলা এখন হোয়াটসঅ্যাপে!",
+  "বিবিসি বাংলা এখন ইন্সটাগ্রামে!",
+];
 
+const filteredOthersNews = othersSection.filter(
+  (item : OtherSectionType) => !excludedCategories.includes(item.title)
+);
   return (
     <main className="min-h-screen bg-gray-50/50 pb-10">
       {/* মার্কি সেকশন */}
@@ -43,7 +51,7 @@ export default async function Home() {
 
           {/* ক্যাটাগরি অনুযায়ী অন্যান্য সংবাদের সেকশন */}
           <div className="space-y-8">
-            {othersSection.map((sec :OtherSectionType) => (
+            {filteredOthersNews.map((sec :OtherSectionType) => (
               <section key={sec.curationId} className="space-y-4">
                 {/* সেকশন হেডার */}
                 <div className="border-b-2 border-red-600 pb-1 flex items-center justify-between">
@@ -66,7 +74,7 @@ export default async function Home() {
 
         {/* ডান পাশ: সর্বাধিক পঠিত / সাইডবার (১ কলাম জুড়ে) */}
         <div>
-          <h1 className="text-3xl ">Most Readed</h1>
+          <MostRead></MostRead>
         </div>
 
       </div>
