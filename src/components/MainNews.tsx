@@ -1,5 +1,4 @@
 import Image from "next/image";
-
 interface MainNewsType {
   id: string;
   title: string;
@@ -9,15 +8,9 @@ interface MainNewsType {
   imageAlt: string;
 }
 
-const MainNews = async () => {
-  const response = await fetch(
-    "https://news-api-v2.vercel.app/api/news/sections",
-    { cache: "no-store" }
-  );
-  const data = await response.json();
-  const section = data.data;
-  const mainNews: MainNewsType[] = section[0].articles;
-  const [firstNews, ...othersNews] = mainNews;
+const MainNews = async ({news}:{news: MainNewsType[]}) => {
+  
+  const [firstNews, ...othersNews] = news;
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-4">
