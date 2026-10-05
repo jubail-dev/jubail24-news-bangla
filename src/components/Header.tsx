@@ -1,5 +1,7 @@
+"use client"
 import Image from "next/image";
 import NavLinks from "./NavLinks";
+import Link from "next/link";
 
 const Header = () => {
   const date = new Date().toLocaleDateString("bn-BD", {
@@ -37,13 +39,17 @@ const Header = () => {
 
         {/* Right Column: Auth Buttons */}
         <div className="flex items-center justify-center md:justify-end gap-4">
-          <button className="text-sm font-medium text-gray-700 hover:text-red-700 transition-colors">
+          <Link href="/sign-in">
+            <button className="text-sm font-medium text-gray-700 hover:text-red-700 transition-colors">
             সাইন ইন
           </button>
+          </Link>
 
-          <button className="bg-red-700 hover:bg-red-800 text-white text-sm font-semibold px-4 py-1.5 rounded transition-colors shadow-sm">
+          <Link href="/sign-up">
+            <button className="bg-red-700 hover:bg-red-800 text-white text-sm font-semibold px-4 py-1.5 rounded transition-colors shadow-sm">
             সাইন আপ
           </button>
+          </Link>
         </div>
 
       </div>
