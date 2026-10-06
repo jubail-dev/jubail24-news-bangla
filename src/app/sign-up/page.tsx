@@ -35,7 +35,7 @@ const SignUpPage = () => {
     if (userData) {
       console.log("সাইন আপ সফল হয়েছে:", userData);
 
-      router.push("/sign-in");
+      router.push("/");
     }
 
     if (error) {
