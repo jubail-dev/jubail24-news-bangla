@@ -30,7 +30,7 @@ const SignInPage = () => {
      
     }
     if(error){
-      console.log("সাইন ইন ব্যর্থ হয়েছে: " + error);
+      console.log("সাইন ইন ব্যর্থ হয়েছে: " + error.message);
     }
   };
 
