@@ -13,7 +13,6 @@ import {
   TextField,
 } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/dist/server/api-utils";
 const SignInPage = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,9 +30,20 @@ const SignInPage = () => {
      
     }
     if(error){
-      console.log("সাইন ইন ব্যর্থ হয়েছে: " + error.message);
+      console.log("সাইন ইন ব্যর্থ হয়েছে: " + error);
     }
   };
+
+  const handleGoogleSignIn = async() => {
+    const data = await authClient.signIn.social({
+      provider: "google"
+    })
+  }
+  const handleGithubSignIn = async () =>{
+    const data = await authClient.signIn.social({
+      provider: "github"
+    })
+  }
   return (
     <Form className="w-full max-w-sm mx-auto my-12 px-4" onSubmit={onSubmit}>
       <Fieldset>
@@ -98,6 +108,28 @@ const SignInPage = () => {
             সাইন আপ করুন
           </Link>
         </p>
+
+       
+<div className="mt-5 space-y-3">
+  <Button
+    type="button"
+    onClick={handleGoogleSignIn}
+    className="w-full border border-gray-300 bg-white text-gray-700 font-medium py-2.5 rounded transition-colors hover:bg-gray-50 text-sm"
+  >
+    Sign In With Google
+  </Button>
+
+  <Button
+    type="button"
+    onClick={handleGithubSignIn}
+    className="w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-2.5 rounded transition-colors text-sm"
+  >
+    Sign In With GitHub
+  </Button>
+</div>
+
+
+
       </Fieldset>
     </Form>
   );

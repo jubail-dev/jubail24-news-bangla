@@ -29,13 +29,15 @@ const UserInfo = () => {
           {/* User Image */}
           <div className="overflow-hidden rounded-full border-2 border-red-100">
             {session.user.image ? (
-              <Image
+              <Link href={"/profile"}>
+                <Image
                 src={session.user.image}
                 alt={session.user.name || "User"}
                 width={40}
                 height={40}
                 className="h-10 w-10 object-cover"
               />
+              </Link>
             ) : (
               <div className="flex h-10 w-10 items-center justify-center bg-red-700 text-sm font-semibold text-white">
                 {session.user.name?.charAt(0).toUpperCase()}
